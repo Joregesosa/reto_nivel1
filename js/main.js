@@ -51,7 +51,42 @@ const usuarios = [
     }
 ];
 
+
 const ADM = ['Usuarios', 'Calificaciones', 'Alumnos', 'Blogs', 'Materias'];
 const MAESTRO = ['Calificaciones', 'Alumnos', 'Blogs', 'Materias'];
 const ALUMNOS = ['Calificaciones', 'Blogs', 'Materias'];
 
+const menuList = document.querySelector('#menuList')
+const search = document.querySelector('#search');
+const resultList = document.querySelector('#resultList');
+const rol = document.querySelector('#rol');
+const nombre_usuario = document.querySelector('#nombre-usuario');
+const rolContainer = document.querySelector('#rolContainer');
+const cerrar = document.querySelector('#cerrar');
+
+ 
+ function filterUsers(searchValue) {
+   let filterData =  usuarios.filter(usuario => 
+        
+
+        usuario.nombre.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
+    )
+        return filterData
+ }
+ 
+ search.addEventListener('input', (e)=>{
+     let results  = filterUsers(e.target.value)
+
+     resultList.innerHTML = '';
+
+    if(e.target.value.length > 0){
+     results.forEach(rs =>{
+
+           const li = document.createElement('li');
+           li.textContent = rs.nombre
+
+           resultList.appendChild(li);
+
+     })
+    }
+ } )
