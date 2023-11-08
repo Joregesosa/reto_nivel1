@@ -68,18 +68,19 @@ const cerrar = document.querySelector('#cerrar');
  function filterUsers(searchValue) {
    let filterData =  usuarios.filter(usuario => 
         
-
         usuario.nombre.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
     )
         return filterData
  }
  
  search.addEventListener('input', (e)=>{
-     let results  = filterUsers(e.target.value)
+
+     let results  = filterUsers(search.value)
 
      resultList.innerHTML = '';
 
-    if(e.target.value.length > 0){
+    if(search.value.length > 0){
+         
      results.forEach(rs =>{
 
            const li = document.createElement('li');
@@ -89,4 +90,44 @@ const cerrar = document.querySelector('#cerrar');
 
      })
     }
+
  } )
+
+ resultList.addEventListener('click', function (e){
+    //Raysell
+    const clickItem = e.target.textContent;
+   
+    const selectedUser = usuarios.filter(user => clickItem === user.nombre);
+    
+    nombre_usuario.textContent = selectedUser[0].nombre
+    rolContainer.textContent = selectedUser[0].rol
+    menuListNav(selectedUser[0].rol)
+    
+ })
+
+ function menuListNav(rol){
+    
+    menuList.innerHTML = '';
+
+    let optionMenu = []; 
+    if(rol === 'adminstrador'){
+        optionMenu = ADM;
+    }else if( rol === "maestro"){
+        optionMenu = MAESTRO;
+    }else if( rol === 'alumno'){
+        optionMenu = ALUMNOS
+    }else{
+        optionMenu = []
+    }
+
+    optionMenu.forEach(option => {
+        const menuItem = document.createElement('li')
+        menuItem.textContent = option;
+        menuList.appendChild(menuItem);
+    })
+ }
+  
+
+
+
+ 
